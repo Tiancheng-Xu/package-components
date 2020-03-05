@@ -1,0 +1,16 @@
+{
+  "liveServer.settings.host": "127.0.0.1",
+
+  "liveServer.settings.port": 8080,
+
+  "liveServer.settings.proxy": {
+
+    "enable": true,
+
+    "baseUri": "/api",
+
+    "proxyUri": "http://127.0.0.1:80/"
+
+  },
+  "git.ignoreLimitWarning": true
+}
