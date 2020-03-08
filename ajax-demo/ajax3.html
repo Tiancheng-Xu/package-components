@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="referrer" content="never">
+	<title>请求豆瓣接口</title>
+	<style>
+		.user {
+			display: flex;
+			background: #f4f4f4;
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+
+		.user ul {
+			list-style: none;
+		}
+	</style>
+</head>
+
+<body>
+	<button id="button">请求豆瓣接口</button>
+
+	<br><br>
+
+	<h1>正在热映的电影</h1>
+
+	<div id="movies"></div>
+
+	<script>
+		document.getElementById('button').addEventListener('click', loadMovies);
+
+		function loadMovies() {
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "https://douban.uieee.com/v2/movie/in_theaters", true);
+
+			xhr.onload = function () {
+				var movies = JSON.parse(this.responseText).subjects;
+				console.log(movies);
+
+				var output = '';
+
+				for (var i in movies) {
+					output += `
+						<div class="user">
+							<img src="${movies[i].images.medium}" width="150" height="150" />
+							<ul>
+								<li>Title: ${movies[i].title}</li>
+								<li>Genres: ${movies[i].genres}</li>
+								<li>Pubdates: ${movies[i].pubdates[0]}</li>
+								<li>Year: ${movies[i].year}</li>
+								<li><a href="${movies[i].alt}">链接:${movies[i].alt}</a></li>
+							</ul>
+						</div>
+					`;
+				}
+				document.getElementById('movies').innerHTML = output;
+
+			}
+
+			xhr.send();
+		}
+
+		loadMovies()
+	</script>
+</body>
+
+</html>
